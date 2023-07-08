@@ -24,7 +24,7 @@ extension UIButton {
             case .primarySmall:
                 return .primary
             case .secondary:
-                return .secondary
+                return .clear
             case .socialMedia:
                 return .background
             }
@@ -50,7 +50,7 @@ extension UIButton {
             case .primarySmall:
                 return .mediumBold
             case .secondary:
-                return .mediumBold
+                return .smallRegular
             case .socialMedia:
                 return .mediumBold
             }
@@ -59,11 +59,13 @@ extension UIButton {
 }
 
 extension UIButton {
-    func apply(_ type: ButtonStyle) {
-        backgroundColor = type.buttonBackgroundColor
-        tintColor = type.buttonTintColor
-        titleLabel?.font = type.buttonFont
-        switch type {
+    func applyStyle(_ buttonStyle: ButtonStyle) {
+        backgroundColor = buttonStyle.buttonBackgroundColor
+        tintColor = buttonStyle.buttonTintColor
+        setTitleColor(buttonStyle.buttonTintColor, for: .normal)
+        titleLabel?.font = buttonStyle.buttonFont
+//        layer.masksToBounds = true
+        switch buttonStyle {
         case .primary: applyPrimary()
         case .primarySmall: applyPrimarySmall()
         case .secondary: applySecondary()
@@ -75,16 +77,22 @@ extension UIButton {
 extension UIButton {
     private func applyPrimary() {
         layer.cornerRadius = 10
-        layer.masksToBounds = true
         heightConstraints(60)
     }
     private func applyPrimarySmall() {
         layer.cornerRadius = 10
-        layer.masksToBounds = true
         heightConstraints(37)
     }
     private func applySecondary() {
+        heightConstraints(0)
+        layer.masksToBounds = false
     }
     private func applySocialMedia() {
+        layer.shadowColor = UIColor.tertiary.cgColor
+        layer.shadowRadius = 5
+        layer.shadowOffset = CGSize(width: 1, height: 1)
+        layer.shadowOpacity = 5
+        equalSizeConstraints(44)
+        layer.cornerRadius = 8
     }
 }
