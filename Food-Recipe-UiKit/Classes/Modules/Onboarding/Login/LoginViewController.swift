@@ -10,23 +10,29 @@ import UIKit
 class LoginViewController: UIViewController {
     // MARK: - IBOutLets & Views
     //
-    @IBOutlet weak var headerTitleLabel: UILabel!
-    @IBOutlet weak var headerCaptionLabel: UILabel!
-    @IBOutlet weak var textFieldsStackView: UIStackView!
-    private let emailTextFields = PrimaryTextField(title: L10n.Login.email,
-                                                   placeholder: L10n.Login.emailTextField)
-    private let passwordTextFields = PrimaryTextField(title: L10n.Login.password,
-                                                      placeholder: L10n.Login.passwordTextField)
+    @IBOutlet private weak var headerTitleLabel: UILabel!
+    @IBOutlet private weak var headerCaptionLabel: UILabel!
+    @IBOutlet private weak var textFieldsStackView: UIStackView!
+    private let nameTextField = PrimaryTextField(title: L10n.Signup.name, placeholder: L10n.Signup.nameTextField)
+    private let emailTextField = PrimaryTextField(title: L10n.Login.email, placeholder: L10n.Login.emailTextField)
+    private let passwordTextField = PrimaryTextField(title: L10n.Login.password, placeholder: L10n.Login.passwordTextField)
+    private let confirmPasswordTextField = PrimaryTextField(title: L10n.Signup.confirmPassword,
+                                                            placeholder: L10n.Signup.confirmPasswordTextField)
     private let forgotPasswordButton: UIButton = UIButton()
     private let primaryButton: UIButton = UIButton()
-    @IBOutlet weak var googleSigninButton: UIButton!
-    @IBOutlet weak var facebookSigninButton: UIButton!
+    @IBOutlet private weak var googleSigninButton: UIButton!
+    @IBOutlet private weak var facebookSigninButton: UIButton!
+    @IBOutlet weak var navigationLabel: UILabel!
+    @IBOutlet weak var navigationButton: UIButton!
+    // MARK: - Properties
+    //
+    var viewModel = LoginRegisterViewModel()
     // MARK: - LifeCycle
     //
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .background
-        updateUI()
+        self.updateUI()
     }
     // MARK: - Update UI
     //
@@ -37,6 +43,8 @@ class LoginViewController: UIViewController {
         updatePrimaryButton()
         googleSigninButton.applyStyle(.socialMedia)
         facebookSigninButton.applyStyle(.socialMedia)
+        updateNavigationLabel()
+        updateNavigationButton()
     }
     /// Header Labels
     private func updateHeaderLabels() {
@@ -44,41 +52,81 @@ class LoginViewController: UIViewController {
         updateHeaderCaptionLabel()
     }
     private func updateHeaderTitleLabel() {
-        headerTitleLabel.font = .headerBold
+        headerTitleLabel.font = viewModel.signUpUser ? .mediumBold : .headerBold
         headerTitleLabel.textColor = .textColor
-        headerTitleLabel.text = L10n.Login.headerTitle
+        headerTitleLabel.text = viewModel.signUpUser ? L10n.Signup.headerTitle : L10n.Login.headerTitle
     }
     private func updateHeaderCaptionLabel() {
-        headerCaptionLabel.font = .mediumRegular
+        headerCaptionLabel.font = viewModel.signUpUser ? .smallRegular : .mediumRegular
         headerCaptionLabel.textColor = .textColor
-        headerCaptionLabel.text = L10n.Login.headerCaption
+        headerCaptionLabel.text = viewModel.signUpUser ? L10n.Signup.headerCaption : L10n.Login.headerCaption
     }
     /// TextFields
     private func addTextFields() {
-        textFieldsStackView.addArrangedSubview(emailTextFields)
-        textFieldsStackView.addArrangedSubview(passwordTextFields)
+        textFieldsStackView.removeAllArrangedSubviews()
+        if viewModel.signUpUser {
+            textFieldsStackView.addArrangedSubview(nameTextField)
+        }
+        textFieldsStackView.addArrangedSubview(emailTextField)
+        textFieldsStackView.addArrangedSubview(passwordTextField)
+        if viewModel.signUpUser {
+            textFieldsStackView.addArrangedSubview(confirmPasswordTextField)
+        }
     }
+    /// forgot password
     private func updateForgotPasswordButton() {
+        var config = UIButton.Configuration.plain()
         textFieldsStackView.addArrangedSubview(forgotPasswordButton)
         forgotPasswordButton.applyStyle(.secondary)
-        forgotPasswordButton.setTitle(L10n.Login.forgotPassword, for: .normal)
+        let title = viewModel.signUpUser ? L10n.Signup.termsAndConditions : L10n.Login.forgotPassword
+        forgotPasswordButton.setTitle(title, for: .normal)
         forgotPasswordButton.contentHorizontalAlignment = .left
+        forgotPasswordButton.contentVerticalAlignment = .top
         forgotPasswordButton.addTarget(self, action: #selector(forgotPasswordAction(_:)),
                                        for: .touchUpInside)
+        if viewModel.signUpUser {
+            config.image = UIImage(systemName: "square")
+        } else {
+            config.image = nil
+        }
+        forgotPasswordButton.configuration = config
     }
     private func updatePrimaryButton() {
         textFieldsStackView.addArrangedSubview(primaryButton)
         primaryButton.applyStyle(.primary)
-        primaryButton.setTitle(L10n.Login.button, for: .normal)
-        primaryButton.addTarget(self, action: #selector(signInButtonAction(_:)),
+        let title = viewModel.signUpUser ? L10n.Signup.button : L10n.Login.button
+        primaryButton.setTitle(title, for: .normal)
+        primaryButton.addTarget(self, action: #selector(self.signInButtonAction),
                                 for: .touchUpInside)
+    }
+    /// navigation button
+    private func updateNavigationLabel() {
+        navigationLabel.font = .smallRegular
+        navigationLabel.textColor = .textColor
+        navigationLabel.text = viewModel.signUpUser ? L10n.Signup.signin : L10n.Login.signup
+    }
+    private func updateNavigationButton() {
+        navigationButton.applyStyle(.secondary)
+        let title = viewModel.signUpUser ? L10n.Login.button : L10n.Signup.button
+        navigationButton.setTitle(title, for: .normal)
     }
     // MARK: - Actions
     //
     @objc func forgotPasswordAction(_ sender: UIButton) {
-        print("action")
+        viewModel.acceptTerms.toggle()
+        print(viewModel.acceptTerms)
+        var config = UIButton.Configuration.plain()
+        if viewModel.acceptTerms {
+            config.image = UIImage(systemName: "checkmark.square")
+        } else {
+            config.image = UIImage(systemName: "square")
+        }
+        forgotPasswordButton.configuration = config
     }
-    @objc func signInButtonAction(_ sender: UIButton) {
-        print("action")
+    @objc func signInButtonAction() {
+    }
+    @IBAction func navigationButtonAction(_ sender: UIButton) {
+        viewModel.signUpUser.toggle()
+        self.updateUI()
     }
 }

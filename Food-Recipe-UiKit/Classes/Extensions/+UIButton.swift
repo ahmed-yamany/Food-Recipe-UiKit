@@ -64,7 +64,6 @@ extension UIButton {
         tintColor = buttonStyle.buttonTintColor
         setTitleColor(buttonStyle.buttonTintColor, for: .normal)
         titleLabel?.font = buttonStyle.buttonFont
-//        layer.masksToBounds = true
         switch buttonStyle {
         case .primary: applyPrimary()
         case .primarySmall: applyPrimarySmall()
@@ -84,8 +83,6 @@ extension UIButton {
         heightConstraints(37)
     }
     private func applySecondary() {
-        heightConstraints(0)
-        layer.masksToBounds = false
     }
     private func applySocialMedia() {
         layer.shadowColor = UIColor.tertiary.cgColor

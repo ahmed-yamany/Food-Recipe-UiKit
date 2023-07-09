@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		EE2D26B92A5AE8C5006CBDFC /* LoginRegisterViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE2D26B82A5AE8C5006CBDFC /* LoginRegisterViewModel.swift */; };
+		EE2D26BB2A5AEFDE006CBDFC /* UIStackView+.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE2D26BA2A5AEFDE006CBDFC /* UIStackView+.swift */; };
 		EE6DB3752A50228200D1C08B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE6DB3742A50228200D1C08B /* AppDelegate.swift */; };
 		EE6DB3772A50228200D1C08B /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE6DB3762A50228200D1C08B /* SceneDelegate.swift */; };
 		EE6DB37E2A50228300D1C08B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = EE6DB37D2A50228300D1C08B /* Assets.xcassets */; };
@@ -53,6 +55,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		EE2D26B82A5AE8C5006CBDFC /* LoginRegisterViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginRegisterViewModel.swift; sourceTree = "<group>"; };
+		EE2D26BA2A5AEFDE006CBDFC /* UIStackView+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIStackView+.swift"; sourceTree = "<group>"; };
 		EE6DB3712A50228200D1C08B /* Food-Recipe-UiKit.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Food-Recipe-UiKit.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		EE6DB3742A50228200D1C08B /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		EE6DB3762A50228200D1C08B /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -170,6 +174,7 @@
 				EE6DBF602A597FF300CF5D87 /* LoginViewController.swift */,
 				EE6DBF612A597FF300CF5D87 /* LoginViewController.xib */,
 				EE6DBF652A599A6B00CF5D87 /* SocialMediaDividerView.swift */,
+				EE2D26B82A5AE8C5006CBDFC /* LoginRegisterViewModel.swift */,
 			);
 			path = Login;
 			sourceTree = "<group>";
@@ -217,6 +222,7 @@
 			children = (
 				EEB896332A51B668009A7960 /* +UIButton.swift */,
 				EEC2FF5A2A57048F00641144 /* UITextField+.swift */,
+				EE2D26BA2A5AEFDE006CBDFC /* UIStackView+.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -426,10 +432,12 @@
 				EEB896272A51A4E5009A7960 /* UIFont+Style.swift in Sources */,
 				EE6DB3772A50228200D1C08B /* SceneDelegate.swift in Sources */,
 				EEF154A02A518F80007A3641 /* UIImage.Generated.swift in Sources */,
+				EE2D26BB2A5AEFDE006CBDFC /* UIStackView+.swift in Sources */,
 				EEB896302A51AB83009A7960 /* SplashViewController.swift in Sources */,
 				EEB896342A51B668009A7960 /* +UIButton.swift in Sources */,
 				EEC2FF5B2A57048F00641144 /* UITextField+.swift in Sources */,
 				EE6DBF662A599A6B00CF5D87 /* SocialMediaDividerView.swift in Sources */,
+				EE2D26B92A5AE8C5006CBDFC /* LoginRegisterViewModel.swift in Sources */,
 				EE6DBF622A597FF300CF5D87 /* LoginViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
